@@ -1,15 +1,15 @@
 
-#README
+# README
 
-##DEMO
+## DEMO
 
-The demo is found in this link: [demoLink]("http://dujar.github.io/myreads_udacity")
+The demo is found in this link: [demoLink](http://dujar.github.io/myreads_udacity)
 
-##Project 1 for UDACITY react
+## Project 1 for UDACITY react
 
 Project: book lending application
 
-##PRE-REQUISITES
+## PRE-REQUISITES
 
 Before you have installed the following:
 
@@ -17,7 +17,7 @@ Before you have installed the following:
 * git or another version control system, current version: git version 2.14.3 (Apple Git-98)
 
 
-##Installation
+## Installation
 
 you can fork or clone this repo:
 
