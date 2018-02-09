@@ -3,7 +3,7 @@
 
 ## DEMO
 
-The demo is found in this link: [demoLink](http://dujar.github.io/myreads_udacity)
+The demo is found in this link: [demoLink](https://dujar.github.io/myreads_react/)
 
 ## Project 1 for UDACITY react
 
