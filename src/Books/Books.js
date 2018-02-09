@@ -1,6 +1,5 @@
 import React from 'react'
 import Book from './Book/Book'
-import Aux from '../hoc/Aux'
 
 const book = (props) => {
 const { books, handleSelect } = props
@@ -18,11 +17,9 @@ const { books, handleSelect } = props
     }
   // console.log("[BOOKS] mappedbooks:",mappedBooks)
     return (
-      <Aux>
         <ol className="books-grid">
         {mappedBooks}
         </ol>
-      </Aux>
     )
   };
 

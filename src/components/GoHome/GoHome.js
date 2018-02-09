@@ -1,11 +1,10 @@
 import React from 'react';
-
+import {NavLink} from 'react-router-dom'
 const goHome = props => {
-  const {history} = props
   return (
-    <a className="close-search" onClick={() => history.push('/')}>
-      Close
-    </a>
+    <NavLink className="close-search" to="/">
+      HOME
+    </NavLink>
   );
 };
 export default goHome

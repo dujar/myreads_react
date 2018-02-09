@@ -2,7 +2,6 @@ import React from 'react'
 import {Route} from 'react-router-dom'
 import Search from './Search/Search'
 import GoSearch from './components/GoSearch/GoSearch'
-import Aux from './hoc/Aux'
 import BookShelves from './BookShelves/BookShelves'
 
 import * as BooksAPI from './Books/BooksAPI'
@@ -17,14 +16,13 @@ class BooksApp extends React.Component {
       currentlyReading: []
     }
   }
-  componentWillUpdate = ()=>{
-  }
 
   handleSelect = (e,book)=> {
     // console.log("e:",e.target.value,"book:",book,"index:",index)
       let id = book.id;
       let oldShelfName = book.shelf;
       let newShelfName = e.target.value;
+      BooksAPI.update(book,e.target.value)
       // //more work to be done.
       let shelves = this.state.shelves;
       console.log("old shelves:",shelves);
@@ -34,7 +32,12 @@ class BooksApp extends React.Component {
       shelves[oldShelfName] = updatedShelf;
       shelf = shelves[newShelfName];
       book.shelf = newShelfName;
-      let newShelf = shelf.concat(book);
+      let newShelf;
+      if(!shelf){
+       newShelf = shelf.push(book);
+      } else {
+       newShelf = shelf.concat(book);
+      }
       shelves[newShelfName] = newShelf;
       console.log("new shelves:",shelves)
       this.setState({shelves: shelves});
@@ -78,7 +81,7 @@ class BooksApp extends React.Component {
         )}/>
 
         <Route path="/search" exact render={() => (
-         <Search handleSelect={this.handleSelect}/>
+         <Search handleSelect={this.handleSelect} bookShelves={shelves}/>
         )}/>
       </div>
         )

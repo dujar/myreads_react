@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as BooksAPI from '../Books/BooksAPI';
-import GoHome from '../components/GoHome/GoHome'
-import InputSearch from '../components/Input/InputSearch'
+import GoHome from '../components/GoHome/GoHome';
+import InputSearch from '../components/Input/InputSearch';
 import BookShelve from '../BookShelves/BookShelve/BookShelve';
 // import Link from 'react-router-dom'
 
@@ -12,17 +12,10 @@ class Search extends Component {
   };
   updateQuery = e => {
     e.preventDefault();
-    let booksInit = [];
     this.setState({ query: e.target.value });
     BooksAPI.search(e.target.value).then(books => {
       if (books) {
-        booksInit = books.map(book => {
-          if (!book.shelf) {
-            book.shelf = 'none';
-          }
-          return book;
-        });
-        this.setState({ books: booksInit });
+        this.setState({ books: books});
       }
     });
     console.log('updating query');
@@ -38,15 +31,43 @@ class Search extends Component {
     // BooksAPI.update(book,e.target.value);
   };
 
+  resetQuery = () => {
+    this.setState({query: ''})
+  }
+
   render() {
     const { books } = this.state;
-    const { handleSelect } = this.props
+    const { handleSelect, bookShelves } = this.props;
+
+    let spreadBookShelves = [...bookShelves.read, ...bookShelves.wantToRead,...bookShelves.currentlyReading]
+
+    console.log("[SEARCH: spreadbookshelves", spreadBookShelves)
+    let filteredBooks = [];
+    if(books.length>1 && spreadBookShelves.length>1){
+      filteredBooks = books.filter( book => {
+        if(!book.shelf){
+          book.shelf = "none"
+        }
+        let there = spreadBookShelves.filter( bookShelve => book.id === bookShelve.id)
+        if(there.length > 0){
+        console.log("there",there)
+          return there
+        } else {
+          return book
+        }
+      })
+    };
+
+    console.log("[filteredBooks:[search]:", filteredBooks)
+    console.log("[SEARCH] books:", books)
+
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <GoHome/>
+          <GoHome />
           <div className="search-books-input-wrapper">
-          <InputSearch changeHandler={e => this.updateQuery(e)}/>
+            <InputSearch changeHandler={e => this.updateQuery(e)} />
           </div>
         </div>
         <div className="search-books-results">
@@ -58,13 +79,21 @@ class Search extends Component {
           )}
           {books.length > 1 && (
             <div>
-              {' '}
-              There are currently {books.length} results from your query!
-
+              <div>
+                {' '}
+                There are currently {books.length} results from your query!
+              </div>
+              <div onClick={this.resetQuery}>
+                <strong>click here to restart!</strong>
+              </div>
             </div>
           )}
           <ol className="books-grid">
-          <BookShelve shelfBooks={books} shelfName="Available books" handleSelect={handleSelect}/>
+            <BookShelve
+              shelfBooks={filteredBooks}
+              shelfName="Available books"
+              handleSelect={handleSelect}
+            />
           </ol>
         </div>
       </div>

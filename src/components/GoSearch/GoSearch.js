@@ -1,11 +1,11 @@
 import React from 'react'
+import {Link } from 'react-router-dom'
 
 const goSearch = (props) => {
-  const {history} = props
   return (
-    <a className="open-search" onClick={() => history.push('/search')}>
-      Close
-    </a>
+    <Link className="open-search" to="/search">
+      Search for Books
+    </Link>
   );
 }
 
