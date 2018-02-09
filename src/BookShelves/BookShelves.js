@@ -11,18 +11,18 @@ const bookShelves = props => {
         bookShelves[shelf]
       ]}`
     );
-    if(shelf!=="none"){
-    return (
-      <BookShelve
-        shelfName={shelf}
-        shelfBooks={bookShelves[shelf]}
-        handleSelect={handleSelect}
-        key={shelf}
-      />
-    );
-  } else {
-    return null
-  }
+    if (shelf !== 'none') {
+      return (
+        <BookShelve
+          shelfName={shelf}
+          shelfBooks={bookShelves[shelf]}
+          handleSelect={handleSelect}
+          key={shelf}
+        />
+      );
+    } else {
+      return null;
+    }
   });
   console.log('[BookShelves] mapped ListofShelves:', ListOfShelves);
   return (

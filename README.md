@@ -1,9 +1,6 @@
 
 # README
 
-## DEMO
-
-The demo is found in this link: [demoLink](https://dujar.github.io/myreads_react/)
 
 ## Project 1 for UDACITY react
 

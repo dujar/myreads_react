@@ -1,15 +1,15 @@
 import React from 'react';
 
 const shelfSelection = props => {
-    const {book, index, handleSelect}= props
-    // if(!book.shelf){
-    //   book.shelf = "none"
-    //   console.log("bookshelf-selection:",book)
-    // }
+  const { book, index, handleSelect } = props;
+  // if(!book.shelf){
+  //   book.shelf = "none"
+  //   console.log("bookshelf-selection:",book)
+  // }
   return (
     <select
       value={book.shelf}
-      onChange={(event) => handleSelect(event, book, index)}
+      onChange={event => handleSelect(event, book, index)}
     >
       <option value="none" disabled>
         Move to...
@@ -22,4 +22,4 @@ const shelfSelection = props => {
   );
 };
 
-export default shelfSelection
+export default shelfSelection;
