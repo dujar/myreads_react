@@ -11,28 +11,27 @@ class Search extends Component {
     books: []
   };
   updateQuery = e => {
-    e.preventDefault();
     this.setState({ query: e.target.value });
-    BooksAPI.search(e.target.value).then(books => {
-      if (books) {
-        this.setState({ books: books });
-      }
-    });
-    console.log('updating query');
+    if (e.target.value) {
+      BooksAPI.search(e.target.value).then(books => {
+          this.setState({ books: books });
+      });
+    } else {
+      this.setState({ books: [] });
+    }
+    // console.log('updating query');
   };
 
-  updateBookShelf = (e, book, index) => {
-    e.preventDefault();
-    const books = this.state.books.slice();
-    book.shelf = e.target.value;
-    books.splice(index, 1, book);
-    this.setState({ books: book });
-    console.log('updating bookshelf');
-    // BooksAPI.update(book,e.target.value);
-  };
 
   resetQuery = () => {
-    this.setState({ query: '' });
+    let query = {
+      target: {
+        value: ''
+      }
+    };
+
+    // console.log("query: ",query)
+    this.updateQuery(query);
   };
 
   render() {
@@ -45,38 +44,39 @@ class Search extends Component {
       ...bookShelves.currentlyReading
     ];
 
-    console.log('[SEARCH: spreadbookshelves', spreadBookShelves);
+    // console.log('[SEARCH: spreadbookshelves', spreadBookShelves);
     let filteredBooks = [];
-    if (books.length > 1 && spreadBookShelves.length > 1) {
-      filteredBooks = books.filter(book => {
-        if (!book.shelf) {
-          book.shelf = 'none';
+    if (books.length > 1 ){
+      filteredBooks = books
+    }
+
+    if( books.length > 1 && spreadBookShelves.length > 1) {
+       filteredBooks = books.map(bookS => {
+        let book = spreadBookShelves.filter(book => bookS.id === book.id)
+        console.log("book after filter",book)
+        if(book.length >0){return book} else {return bookS}
         }
-        let there = spreadBookShelves.filter(
-          bookShelve => book.id === bookShelve.id
-        );
-        if (there.length > 0) {
-          console.log('there', there);
-          return there;
-        } else {
-          return book;
-        }
+      )
+      .reduce(function(a, b) {
+        return a.concat(b)
       });
     }
 
     console.log('[filteredBooks:[search]:', filteredBooks);
-    console.log('[SEARCH] books:', books);
+    // console.log('[SEARCH] books:', books);
 
     return (
       <div className="search-books">
         <div className="search-books-bar">
           <GoHome />
           <div className="search-books-input-wrapper">
-            <InputSearch changeHandler={e => this.updateQuery(e)} />
+            <InputSearch
+            changeHandler={e => this.updateQuery(e)}
+            query={this.state.query} />
           </div>
         </div>
         <div className="search-books-results">
-          {books.length === 0 && (
+          {books.length === 0 && this.state.query.length > 0 && (
             <ul>
               <li> Sorry mate, there are no results found with that query.</li>
               <li> Fire up a new search if not yet done!</li>
@@ -85,7 +85,6 @@ class Search extends Component {
           {books.length > 1 && (
             <div>
               <div>
-                {' '}
                 There are currently {books.length} results from your query!
               </div>
               <div onClick={this.resetQuery}>

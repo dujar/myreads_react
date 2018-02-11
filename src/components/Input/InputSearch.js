@@ -1,12 +1,15 @@
 import React from 'react';
-
+import DebounceInput from 'react-debounce-input';
 const inputSearch = props => {
-const {changeHandler} = props
+  const { changeHandler, query } = props;
   return (
-    <input
-      type="text"
+    <DebounceInput
+      // text="text"
+      minLength={3}
+      debounceTimeout={500}
+      placeholder="Search by title or author!!"
       onChange={changeHandler}
-      placeholder="Search by title or author"
+      value={query}
     />
   );
 };
