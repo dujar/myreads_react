@@ -53,17 +53,17 @@ class Search extends Component {
     if( books.length > 1 && spreadBookShelves.length > 1) {
        filteredBooks = books.map(bookS => {
         let book = spreadBookShelves.filter(book => bookS.id === book.id)
-        console.log("book after filter",book)
+        // console.log("book after filter",book)
         if(book.length >0){return book} else {return bookS}
         }
       )
       .reduce(function(a, b) {
-      console.log(a)
+      // console.log(a)
         return a.concat(b)
       },[]);
     }
 
-    console.log('[filteredBooks:[search]:', filteredBooks);
+    // console.log('[filteredBooks:[search]:', filteredBooks);
     // console.log('[SEARCH] books:', books);
 
     return (
