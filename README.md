@@ -5,7 +5,10 @@
 ## Project 1 for UDACITY react
 
 Project: book lending application
+A part of the React Program
 
+## Project Overview
+MyReads project, its is a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read. The project emphasizes using React to build the application and provides an API server and client library that you will use to persist information as you interact with the application.
 ## PRE-REQUISITES
 
 Before you have installed the following:

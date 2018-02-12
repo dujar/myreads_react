@@ -58,8 +58,9 @@ class Search extends Component {
         }
       )
       .reduce(function(a, b) {
+      console.log(a)
         return a.concat(b)
-      });
+      },[]);
     }
 
     console.log('[filteredBooks:[search]:', filteredBooks);
